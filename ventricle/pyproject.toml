@@ -1,6 +1,6 @@
 [project]
 name = "ventricle"
-version = "0.0.1"
+version = "0.0.3"
 description = "An opinionated modern server, worker and sheduler"
 authors = [
     {name = "Bobby Lange",email = "info@robertlange.me"}
@@ -8,11 +8,13 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "fastapi (>=0.117.1,<0.118.0)"
+    "fastapi (>=0.117.1,<0.118.0)",
+    "uvicorn (>=0.37.0,<0.38.0)",
+    "apscheduler (>=3.11.0,<4.0.0)"
 ]
 
 [tool.poetry]
-packages = [{include = "shipyard", from = "src"}]
+packages = [{include = "ventricle", from = "src"}]
 
 
 [build-system]
