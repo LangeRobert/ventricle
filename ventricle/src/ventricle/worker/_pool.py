@@ -36,6 +36,7 @@ class WorkerPool:
         Block until all workers are done.
         :return: None
         """
+        self._head_worker.join()
         for worker in self._workers:
             worker.join()
 
