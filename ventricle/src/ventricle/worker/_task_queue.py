@@ -1,40 +1,47 @@
 import asyncio
 from asyncio import Queue, AbstractEventLoop
+from typing import Optional
 
 from ._task import Task
 
 
 class TaskQueue:
+    """
+    An asyncio.Queue confined to a single (owning) event loop, but usable
+    from *any* loop or thread via cross-loop marshaling.
+    """
 
-    def __init__(self):
-        super().__init__()
-
-        self._loop: AbstractEventLoop | None = None
-        self._q: Queue[Task] | None = None
-
-        self.queue = Queue()
+    def __init__(self) -> None:
+        self._loop: Optional[AbstractEventLoop] = None
+        self._q: Optional[Queue[Task]] = None
 
     async def start(self) -> None:
         """
-        Initialize the queue inside the running loop.
-        Must be awaited from the target loop/thread.
+        Initialize the queue inside the running (owning) loop.
+        Must be awaited from the target loop/thread that will own the queue.
         """
         self._loop = asyncio.get_running_loop()
         self._q = asyncio.Queue()
 
-    async def get(self) -> Task:
-        """
-        Get a task to the queue.
-        :return: None
-        """
-        assert self._q is not None
-        return await self.queue.get()
+    # ----------------------------
+    # Async API usable from ANY loop
+    # ----------------------------
 
-    async def put(self, task: Task) -> None:
+    async def put(self, item: Task) -> None:
         """
-        Add a task to the queue.
-        :param task: The task to add.
-        :return: None
+        Works when called from the owning loop OR any other event loop.
+        If called from a foreign loop, the operation is marshaled to the owning loop.
         """
         assert self._loop is not None and self._q is not None
-        self._loop.call_soon_threadsafe(self._q.put_nowait, task)
+        # Foreign loop: marshal to owning loop and await the cross-loop future.
+        fut = asyncio.run_coroutine_threadsafe(self._q.put(item), self._loop)
+        await asyncio.wrap_future(fut)
+
+    async def get(self) -> Task:
+        """
+        Works when called from the owning loop OR any other event loop.
+        If called from a foreign loop, the operation is marshaled to the owning loop.
+        """
+        assert self._loop is not None and self._q is not None
+        fut = asyncio.run_coroutine_threadsafe(self._q.get(), self._loop)
+        return await asyncio.wrap_future(fut)

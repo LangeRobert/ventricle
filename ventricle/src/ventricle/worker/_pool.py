@@ -51,7 +51,6 @@ class WorkerPool:
             # create the task object and put it in the execution queue
             task = Task(func=func, args=args, kwargs=kwargs)
             await self._worker_queue.put(task)
-
             return None
 
         return wrapper

@@ -4,6 +4,9 @@ from ._worker import Worker
 
 
 class HeadWorker(Worker):
+    """
+        Coordinating Worker Thread. Owns the managing event loop.
+    """
 
     def __init__(self, queue: TaskQueue) -> None:
         super().__init__(queue)
