@@ -3,7 +3,7 @@
 An async REST-server, scheduler and worker all in one. Highly customizable, as it is just wrapping other battle-tested libaries.
 
 ```python
-from  ventricle import Ventricle
+from ventricle import Ventricle
 
 app = Ventricle()
 

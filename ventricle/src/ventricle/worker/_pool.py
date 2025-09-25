@@ -4,6 +4,7 @@ from typing import Callable, Awaitable, Any
 from ._task import Task
 from ._task_queue import TaskQueue
 from ._worker import Worker
+from ._head import HeadWorker
 
 
 class WorkerPool:
@@ -18,6 +19,7 @@ class WorkerPool:
         self._worker_queue = TaskQueue()
 
         # initialize the worker
+        self._head_worker = HeadWorker(self._worker_queue)
         self._workers = [Worker(self._worker_queue) for _ in range(concurrency)]
 
     def start(self) -> None:
@@ -25,6 +27,7 @@ class WorkerPool:
         Start the worker pool.
         :return: None
         """
+        self._head_worker.start()
         for worker in self._workers:
             worker.start()
 
