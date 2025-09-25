@@ -1,7 +1,7 @@
 [project]
 name = "ventricle"
-version = "0.0.3"
-description = "An opinionated modern server, worker and sheduler"
+version = "0.0.5"
+description = "An opinionated modern async server, worker and scheduler"
 authors = [
     {name = "Bobby Lange",email = "info@robertlange.me"}
 ]
@@ -12,6 +12,9 @@ dependencies = [
     "uvicorn (>=0.37.0,<0.38.0)",
     "apscheduler (>=3.11.0,<4.0.0)"
 ]
+
+[project.urls]
+Homepage = "https://github.com/LangeRobert/ventricle"
 
 [tool.poetry]
 packages = [{include = "ventricle", from = "src"}]
