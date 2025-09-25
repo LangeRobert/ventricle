@@ -1,0 +1,68 @@
+# ---- Python byte-compiled / cache ----
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---- C extensions ----
+*.so
+*.pyd
+*.dll
+
+# ---- Distribution / packaging ----
+.Python
+build/
+dist/
+wheelhouse/
+*.egg-info/
+.eggs/
+*.egg
+sdist/
+
+# Also ignore nested project dist directory explicitly
+shipyard/dist/
+
+# ---- Virtual environments ----
+.venv/
+venv/
+ENV/
+env/
+
+# ---- Installer logs ----
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ---- Unit test / coverage reports ----
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+coverage.xml
+
+# ---- Type checker caches ----
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+
+# ---- Editor/IDE ----
+.vscode/
+.idea/
+
+
+# ---- OS / misc ----
+.DS_Store
+Thumbs.db
+
+# ---- Project-local configs ----
+.env
+.env.*
+.envrc
+.pyre_configuration.local
+
+# ---- PEP 582 ----
+__pypackages__/
