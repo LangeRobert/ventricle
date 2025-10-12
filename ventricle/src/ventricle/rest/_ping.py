@@ -9,6 +9,6 @@ class PingResponse(BaseModel):
     status: int
     message: Optional[str] = None
 
-@ping_router.get("", response_model=PingResponse)
+@ping_router.get("", response_model=PingResponse, include_in_schema=False)
 async def ping_endpoint():
     return PingResponse(status=200)

@@ -1,6 +1,6 @@
 [project]
 name = "ventricle"
-version = "0.0.9"
+version = "0.0.10"
 description = "An opinionated modern async server, worker and scheduler"
 authors = [
     {name = "Bobby Lange",email = "info@robertlange.me"}
